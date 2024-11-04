@@ -5,7 +5,7 @@ import jdk.jshell.execution.Util;
 import utilities.utilities;
 
 
-public class Product {
+public class Product extends Item {
     private static int count = 1;
 
     private int id;
@@ -13,6 +13,7 @@ public class Product {
     private Double preco;
 
     public Product(String nome, Double preco) {
+        super(count, nome, preco);
         this.id = count;
         this.nome = nome;
         this.preco = preco;
@@ -31,14 +32,16 @@ public class Product {
         this.nome = nome;
     }
 
-    public Double getPreco() {
-        return preco;
-    }
+
 
     public void setPreco(Double preco) {
         this.preco = preco;
     }
 
+    @Override
+    public double calcularPrecoTotal() {
+        return getPreco();
+    }
 
     public String toString() {
         return "id: " + this.getId() +

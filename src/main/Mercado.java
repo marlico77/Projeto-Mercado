@@ -29,6 +29,8 @@ public class Mercado {
         System.out.println("| Opção 3 - Comprar    |");
         System.out.println("| Opção 4 - Carrinho   |");
         System.out.println("| Opção 5 - Sair       |");
+        System.out.println("| Opção 6 - Remover    |");
+        System.out.println("| Opção 7 - Editar     |");
 
         int option = input.nextInt();
 
@@ -54,6 +56,15 @@ public class Mercado {
                 System.out.println("Obrigado pela preferência");
                 System.exit(0);
 
+            case 6:
+                removerProdutoDoCarrinho();
+                break;
+
+            case 7:
+                editarQuantidadeProdutoNoCarrinho();
+                break;
+
+
             default:
                 System.out.println("Opção inválida!");
                 menu();
@@ -73,7 +84,7 @@ public class Mercado {
 
         System.out.println(produto.getNome() + " cadastrado com sucesso!");
         menu();
-    }
+    }   
 
 
     private static void listarProdutos() {
@@ -93,6 +104,7 @@ public class Mercado {
 
         menu();
     }
+
 
     private static void comprarProdutos() {
 
@@ -182,5 +194,55 @@ public class Mercado {
 
         System.out.println("Obrigado pela preferência");
         menu();
+    }
+
+
+    private static void removerProdutoDoCarrinho() {
+
+        System.out.println("Digite o código do produto que deseja remover:");
+        int codigoProdutoParaRemover = Integer.parseInt(input.next());
+
+
+        for (Map.Entry<Product, Integer> itemDoCarrinho : carrinho.entrySet()) {
+
+            Product produtoNoCarrinho = itemDoCarrinho.getKey();
+
+
+            if (produtoNoCarrinho.getId() == codigoProdutoParaRemover) {
+
+                carrinho.remove(produtoNoCarrinho);
+                System.out.println("Produto removido do carrinho!");
+                return;
+            }
+        }
+
+
+        System.out.println("Produto não encontrado no carrinho.");
+    }
+
+    private static void editarQuantidadeProdutoNoCarrinho() {
+
+        System.out.println("Digite o código do produto que deseja editar:");
+        int codigoProdutoParaEditar = Integer.parseInt(input.next());
+
+        System.out.println("Digite a nova quantidade:");
+        int novaQuantidade = Integer.parseInt(input.next());
+
+
+        for (Map.Entry<Product, Integer> itemDoCarrinho : carrinho.entrySet()) {
+
+            Product produtoNoCarrinho = itemDoCarrinho.getKey();
+
+
+            if (produtoNoCarrinho.getId() == codigoProdutoParaEditar) {
+
+                carrinho.put(produtoNoCarrinho, novaQuantidade);
+                System.out.println("Quantidade do produto atualizada!");
+                return;
+            }
+        }
+
+
+        System.out.println("Produto não encontrado no carrinho.");
     }
 }
